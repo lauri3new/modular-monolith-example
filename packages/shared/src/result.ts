@@ -20,6 +20,10 @@ export class Ok<T> {
     return true;
   }
 
+  something(): void {
+    return undefined;
+  }
+
   isErr(): this is Err<never> {
     return false;
   }

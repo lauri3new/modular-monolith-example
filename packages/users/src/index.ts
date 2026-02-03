@@ -8,5 +8,7 @@
 
 export { createUsersRouter, type UsersRouterDependencies } from "./infrastructure/http/router.js";
 export { usersMigrations } from "./infrastructure/migrations/index.js";
-export { createUsersModule, type UsersModule } from "./module.js";
+export { createUsersModule } from "./module.js";
+// Re-export module type from types package (canonical location)
+export type { UsersModule } from "@acme/users-types";
 export { UserProfileCreatedEvent } from "./domain/events/user-profile-created.event.js";

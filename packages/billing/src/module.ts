@@ -1,6 +1,7 @@
 import type { Router } from "express";
 import type { DatabaseConnection } from "@acme/db";
 import type { EventBus, UserId } from "@acme/shared";
+import type { AuthModule } from "@acme/auth-types";
 
 import { createBillingRouter } from "./infrastructure/http/router.js";
 import { billingMigrations } from "./infrastructure/migrations/index.js";
@@ -8,6 +9,7 @@ import { billingMigrations } from "./infrastructure/migrations/index.js";
 export interface BillingModuleConfig {
   db: DatabaseConnection;
   eventBus: EventBus;
+  authModule: AuthModule;
 }
 
 export interface BillingModule {
@@ -27,7 +29,7 @@ export function createBillingModule(config: BillingModuleConfig): BillingModule 
   }>("auth.user_registered", async (event) => {
     console.log(`Creating free subscription for user ${event.userId}`);
     await config.db.query(
-      `INSERT INTO billing_subscriptions (id, user_id, plan, status)
+      `INSERT INTO billing.subscriptions (id, user_id, plan, status)
        VALUES (gen_random_uuid(), $1, 'free', 'active')`,
       [event.userId]
     );

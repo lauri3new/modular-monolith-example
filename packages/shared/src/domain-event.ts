@@ -12,8 +12,10 @@
 export abstract class DomainEvent {
   readonly occurredAt: Date;
   abstract readonly eventType: string;
+  readonly data?: any;
 
-  constructor() {
+  constructor(data?: Record<string, any>) {
+    this.data = data;
     this.occurredAt = new Date();
   }
 }
@@ -52,7 +54,7 @@ export class EventBus {
     };
   }
 
-  async publish(event: DomainEvent): Promise<void> {
+  async publish(event: any): Promise<void> {
     const eventHandlers = this.handlers.get(event.eventType);
     if (!eventHandlers) {
       return;

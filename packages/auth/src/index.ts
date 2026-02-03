@@ -30,4 +30,6 @@ export type {
 export { authMigrations } from "./infrastructure/migrations/index.js";
 
 // Module initialization
-export { createAuthModule, type AuthModule } from "./module.js";
+export { createAuthModule } from "./module.js";
+// Re-export module type from types package (canonical location)
+export type { AuthModule } from "@acme/auth-types";

@@ -17,6 +17,13 @@ pnpm db:migrate                       # Run database migrations
 pnpm --filter @acme/auth test         # Test single package
 pnpm --filter @acme/auth build        # Build single package
 pnpm --filter @acme/api dev           # Run just the API in dev mode
+
+# Integration testing
+pnpm test:db:up                       # Start test PostgreSQL container
+pnpm test:db:down                     # Stop test PostgreSQL container
+pnpm test:db:reset                    # Reset test database (wipe all data)
+pnpm test:integration                 # Run all integration tests
+pnpm --filter @acme/auth test:integration  # Run integration tests for a single package
 ```
 
 ## Architecture
@@ -76,10 +83,14 @@ src/
 
 ### Database Conventions
 
-- Single PostgreSQL database
-- Tables prefixed by domain: `auth_`, `users_`, `billing_`
+- Single PostgreSQL database with **separate schemas per domain**:
+  - `auth` schema: `auth.user_credentials`, `auth.refresh_tokens`
+  - `users` schema: `users.profiles`
+  - `billing` schema: `billing.subscriptions`
 - Each domain owns its migrations in `infrastructure/migrations/`
+- Migrations create the schema first (`000_create_schema`)
 - No cross-domain table access; use events instead
+- Schema isolation allows parallel integration test runs
 
 ### Domain Events Pattern
 

@@ -4,9 +4,14 @@ export const usersMigrations: DomainMigrations = {
   domain: "users",
   migrations: [
     {
+      name: "000_create_schema",
+      up: `CREATE SCHEMA IF NOT EXISTS users;`,
+      down: `DROP SCHEMA IF EXISTS users CASCADE;`,
+    },
+    {
       name: "001_create_user_profiles_table",
       up: `
-        CREATE TABLE IF NOT EXISTS users_profiles (
+        CREATE TABLE IF NOT EXISTS users.profiles (
           id UUID PRIMARY KEY,
           email VARCHAR(255) NOT NULL,
           display_name VARCHAR(100),
@@ -17,7 +22,7 @@ export const usersMigrations: DomainMigrations = {
         );
       `,
       down: `
-        DROP TABLE IF EXISTS users_profiles;
+        DROP TABLE IF EXISTS users.profiles;
       `,
     },
   ],

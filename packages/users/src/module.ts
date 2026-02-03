@@ -36,9 +36,9 @@ export function createUsersModule(config: UsersModuleConfig): UsersModule {
     occurredAt: Date;
   }>("auth.user_registered", async (event) => {
     console.log(`Creating user profile for ${event.email}`);
-    // Implementation: create user profile in users_profiles table
+    // Implementation: create user profile in users.profiles table
     await config.db.query(
-      `INSERT INTO users_profiles (id, email) VALUES ($1, $2)
+      `INSERT INTO users.profiles (id, email) VALUES ($1, $2)
        ON CONFLICT (id) DO NOTHING`,
       [event.userId, event.email]
     );

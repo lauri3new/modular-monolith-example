@@ -4,9 +4,14 @@ export const billingMigrations: DomainMigrations = {
   domain: "billing",
   migrations: [
     {
+      name: "000_create_schema",
+      up: `CREATE SCHEMA IF NOT EXISTS billing;`,
+      down: `DROP SCHEMA IF EXISTS billing CASCADE;`,
+    },
+    {
       name: "001_create_subscriptions_table",
       up: `
-        CREATE TABLE IF NOT EXISTS billing_subscriptions (
+        CREATE TABLE IF NOT EXISTS billing.subscriptions (
           id UUID PRIMARY KEY,
           user_id UUID NOT NULL,
           plan VARCHAR(50) NOT NULL DEFAULT 'free',
@@ -17,10 +22,10 @@ export const billingMigrations: DomainMigrations = {
         );
 
         CREATE INDEX idx_billing_subscriptions_user_id
-          ON billing_subscriptions(user_id);
+          ON billing.subscriptions(user_id);
       `,
       down: `
-        DROP TABLE IF EXISTS billing_subscriptions;
+        DROP TABLE IF EXISTS billing.subscriptions;
       `,
     },
   ],

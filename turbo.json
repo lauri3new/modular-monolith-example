@@ -27,6 +27,13 @@
       "outputs": ["coverage/**"],
       "inputs": ["src/**", "**/*.test.ts"]
     },
+    "test:integration": {
+      "dependsOn": ["^build"],
+      "outputs": ["coverage/**"],
+      "inputs": ["src/**", "**/*.test.ts", "**/*.integration.test.ts"],
+      "cache": false,
+      "env": ["TEST_DATABASE_URL"]
+    },
     "clean": {
       "cache": false,
       "outputs": []

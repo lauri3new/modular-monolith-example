@@ -75,6 +75,12 @@ importers:
 
   packages/auth:
     dependencies:
+      '@acme/auth-types':
+        specifier: workspace:*
+        version: link:../auth-types
+      '@acme/billing-types':
+        specifier: workspace:*
+        version: link:../billing-types
       '@acme/db':
         specifier: workspace:*
         version: link:../db
@@ -91,6 +97,9 @@ importers:
         specifier: ^9.0.0
         version: 9.0.3
     devDependencies:
+      '@acme/test-utils':
+        specifier: workspace:*
+        version: link:../test-utils
       '@types/bcrypt':
         specifier: ^5.0.0
         version: 5.0.2
@@ -110,8 +119,20 @@ importers:
         specifier: ^1.2.0
         version: 1.6.1(@types/node@20.19.31)
 
+  packages/auth-types:
+    devDependencies:
+      typescript:
+        specifier: ^5.3.0
+        version: 5.9.3
+
   packages/billing:
     dependencies:
+      '@acme/auth-types':
+        specifier: workspace:*
+        version: link:../auth-types
+      '@acme/billing-types':
+        specifier: workspace:*
+        version: link:../billing-types
       '@acme/db':
         specifier: workspace:*
         version: link:../db
@@ -122,15 +143,27 @@ importers:
         specifier: ^4.18.0
         version: 4.22.1
     devDependencies:
+      '@acme/test-utils':
+        specifier: workspace:*
+        version: link:../test-utils
       '@types/express':
         specifier: ^4.17.0
         version: 4.17.25
+      tsx:
+        specifier: ^4.7.0
+        version: 4.21.0
       typescript:
         specifier: ^5.3.0
         version: 5.9.3
       vitest:
         specifier: ^1.2.0
         version: 1.6.1(@types/node@20.19.31)
+
+  packages/billing-types:
+    devDependencies:
+      typescript:
+        specifier: ^5.3.0
+        version: 5.9.3
 
   packages/config:
     dependencies:
@@ -167,6 +200,22 @@ importers:
         specifier: ^1.2.0
         version: 1.6.1(@types/node@20.19.31)
 
+  packages/test-utils:
+    dependencies:
+      '@acme/config':
+        specifier: workspace:*
+        version: link:../config
+      '@acme/db':
+        specifier: workspace:*
+        version: link:../db
+    devDependencies:
+      typescript:
+        specifier: ^5.3.0
+        version: 5.9.3
+      vitest:
+        specifier: ^1.2.0
+        version: 1.6.1(@types/node@20.19.31)
+
   packages/users:
     dependencies:
       '@acme/db':
@@ -175,19 +224,34 @@ importers:
       '@acme/shared':
         specifier: workspace:*
         version: link:../shared
+      '@acme/users-types':
+        specifier: workspace:*
+        version: link:../users-types
       express:
         specifier: ^4.18.0
         version: 4.22.1
     devDependencies:
+      '@acme/test-utils':
+        specifier: workspace:*
+        version: link:../test-utils
       '@types/express':
         specifier: ^4.17.0
         version: 4.17.25
+      tsx:
+        specifier: ^4.7.0
+        version: 4.21.0
       typescript:
         specifier: ^5.3.0
         version: 5.9.3
       vitest:
         specifier: ^1.2.0
         version: 1.6.1(@types/node@20.19.31)
+
+  packages/users-types:
+    devDependencies:
+      typescript:
+        specifier: ^5.3.0
+        version: 5.9.3
 
 packages:
 

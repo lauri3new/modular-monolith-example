@@ -34,15 +34,19 @@ export class MigrationRunner {
   }
 
   async initialize(): Promise<void> {
+    try {
     await this.db.query(`
       CREATE TABLE IF NOT EXISTS _migrations (
         id SERIAL PRIMARY KEY,
         domain VARCHAR(255) NOT NULL,
         name VARCHAR(255) NOT NULL,
         executed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        UNIQUE(domain, name)
-      )
-    `);
+          UNIQUE(domain, name)
+        )
+      `);
+    } catch (error) {
+      console.error("Error initializing migrations table:", error);
+    }
   }
 
   async runAll(): Promise<void> {

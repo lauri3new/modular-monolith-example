@@ -14,6 +14,7 @@
 import type { Router } from "express";
 import type { DatabaseConnection } from "@acme/db";
 import type { EventBus } from "@acme/shared";
+import type { BillingModule } from "@acme/billing-types";
 
 import { createAuthRouter } from "./infrastructure/http/router.js";
 import { PgUserCredentialsRepository } from "./infrastructure/persistence/pg-user-credentials.repository.js";
@@ -24,12 +25,12 @@ export interface AuthModuleConfig {
   eventBus: EventBus;
   jwtSecret: string;
   jwtExpiresIn?: number;
+  billingModule: BillingModule;
 }
 
 export interface AuthModule {
   router: Router;
   migrations: typeof authMigrations;
-  banana: string;
 }
 
 /**
@@ -50,6 +51,5 @@ export function createAuthModule(config: AuthModuleConfig): AuthModule {
   return {
     router,
     migrations: authMigrations,
-    banana: 'banana',
   };
 }

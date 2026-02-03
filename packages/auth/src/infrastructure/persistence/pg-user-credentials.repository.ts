@@ -32,7 +32,7 @@ export class PgUserCredentialsRepository implements UserCredentialsRepository {
   async findById(id: UserId): Promise<UserCredentials | null> {
     const result = await this.db.query<UserCredentialsRow>(
       `SELECT id, email, password_hash, is_verified, last_login_at, created_at
-       FROM auth_user_credentials
+       FROM auth.user_credentials
        WHERE id = $1`,
       [id]
     );
@@ -48,7 +48,7 @@ export class PgUserCredentialsRepository implements UserCredentialsRepository {
   async findByEmail(email: Email): Promise<UserCredentials | null> {
     const result = await this.db.query<UserCredentialsRow>(
       `SELECT id, email, password_hash, is_verified, last_login_at, created_at
-       FROM auth_user_credentials
+       FROM auth.user_credentials
        WHERE email = $1`,
       [email.value]
     );
@@ -63,7 +63,7 @@ export class PgUserCredentialsRepository implements UserCredentialsRepository {
 
   async save(userCredentials: UserCredentials): Promise<void> {
     await this.db.query(
-      `INSERT INTO auth_user_credentials (id, email, password_hash, is_verified, last_login_at, created_at)
+      `INSERT INTO auth.user_credentials (id, email, password_hash, is_verified, last_login_at, created_at)
        VALUES ($1, $2, $3, $4, $5, $6)
        ON CONFLICT (id) DO UPDATE SET
          email = EXCLUDED.email,
@@ -83,7 +83,7 @@ export class PgUserCredentialsRepository implements UserCredentialsRepository {
 
   async existsByEmail(email: Email): Promise<boolean> {
     const result = await this.db.query(
-      `SELECT 1 FROM auth_user_credentials WHERE email = $1`,
+      `SELECT 1 FROM auth.user_credentials WHERE email = $1`,
       [email.value]
     );
     return (result.rowCount ?? 0) > 0;

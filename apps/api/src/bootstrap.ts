@@ -65,7 +65,7 @@ export async function bootstrap(): Promise<BootstrapResult> {
     eventBus,
     jwtSecret: config.jwtSecret,
     jwtExpiresIn: 3600,
-  });
+  } as any);
 
   const usersModule = createUsersModule({
     db,
@@ -75,6 +75,7 @@ export async function bootstrap(): Promise<BootstrapResult> {
   const billingModule = createBillingModule({
     db,
     eventBus,
+    authModule
   });
 
   console.log("✅ Domain modules initialized");
