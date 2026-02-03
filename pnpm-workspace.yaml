@@ -1,0 +1,5 @@
+# pnpm workspace configuration
+# All packages and apps are included in the workspace
+packages:
+  - "apps/*"
+  - "packages/*"

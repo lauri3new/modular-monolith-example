@@ -1,0 +1,36 @@
+{
+  "name": "@acme/auth",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "db:migrate": "tsx src/infrastructure/migrations/run.ts"
+  },
+  "dependencies": {
+    "@acme/shared": "workspace:*",
+    "@acme/db": "workspace:*",
+    "bcrypt": "^5.1.0",
+    "jsonwebtoken": "^9.0.0",
+    "express": "^4.18.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/express": "^4.17.0",
+    "@types/jsonwebtoken": "^9.0.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.2.0",
+    "tsx": "^4.7.0"
+  }
+}
